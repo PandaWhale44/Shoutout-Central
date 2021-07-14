@@ -30,30 +30,30 @@ const initialState = {
       },
       votes: {
         netVotes: 10,
-        upvotes: 12, 
+        upvotes: 12,
         downvotes: 2,
       },
       parentId: 1,
-      depthLevel: 1
+      depthLevel: 1,
     },
-  ]
+  ],
 };
 
 // newComment = {
-    // "commentId": 1110,
-    // "contents": "post comment test 001",
-    // "metadata": {
-    //   "username": "jongsun",
-    //   "createTimestamp": 1626115310930,
-    //   editTimestamp: null
-    // },
-    // "votes": {
-    //   "netVotes": 0,
-    //   "upvotes": 0, 
-    //   "downvotes": 0
-    // },
-    // "parentId": 1100,
-    // "depthLevel": 2
+// "commentId": 1110,
+// "contents": "post comment test 001",
+// "metadata": {
+//   "username": "jongsun",
+//   "createTimestamp": 1626115310930,
+//   editTimestamp: null
+// },
+// "votes": {
+//   "netVotes": 0,
+//   "upvotes": 0,
+//   "downvotes": 0
+// },
+// "parentId": 1100,
+// "depthLevel": 2
 // }
 
 // const initialState = {
@@ -65,7 +65,12 @@ const initialState = {
 // };
 
 const commentReducer = (state = initialState, action) => {
-  let lastCommentId, totalComments, newComment, commentList, currComment, topVotedList;
+  let lastCommentId;
+  let totalComments;
+  let newComment;
+  let commentList;
+  let currComment;
+  let topVotedList;
   switch (action.type) {
     case types.ADD_COMMENT:
       // increment lastCommentId and totalComments counters
@@ -73,26 +78,26 @@ const commentReducer = (state = initialState, action) => {
       totalComments = state.totalComments + 1;
       // create new comment component from provided data
       newComment = {
-        'commentId': state.lastCommentId + 1,
-        'contents': action.payload.contents,
-        'metadata': {
-          'username': action.payload.username,
-          'timestamp': Date.now(),
+        commentId: state.lastCommentId + 1,
+        contents: action.payload.contents,
+        metadata: {
+          username: action.payload.username,
+          timestamp: Date.now(),
           // editTimestamp: null,
         },
-        'votes': {
-          'netVotes': 0,
-          'upvotes': 0, 
-          'downvotes': 0,
+        votes: {
+          netVotes: 0,
+          upvotes: 0,
+          downvotes: 0,
         },
-        'parentId': action.payload.parentId,
+        parentId: action.payload.parentId,
         // depthLevel: commentList.filter((el) => el.commentId === parentId).pop().depthLevel + 1,
       };
       // push the new comment onto a copy of the comment list
       commentList = state.commentList.slice();
       commentList.push(newComment);
       // send to db
-      fetch('http://localhost:4000/api/comment/post', {
+      fetch('/api/comment/post', {
         method: 'POST',
         mode: 'no-cors',
         // headers: {
@@ -101,8 +106,8 @@ const commentReducer = (state = initialState, action) => {
         body: { ...newComment },
       })
         // .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.error(err));
+        .then((data) => console.log(data))
+        .catch((err) => console.error(err));
       // update state
       return {
         ...state,
@@ -112,7 +117,9 @@ const commentReducer = (state = initialState, action) => {
       };
     case types.EDIT_COMMENT:
       // extract comment component where add button was clicked
-      currComment = state.commentList.filter((el) => el.commentId === action.payload.commentId).pop();
+      currComment = state.commentList
+        .filter((el) => el.commentId === action.payload.commentId)
+        .pop();
       currComment.contents = action.payload.contents;
       currComment.editTimestamp = Date.now();
       // reinserts current comment component into commentList
@@ -124,7 +131,7 @@ const commentReducer = (state = initialState, action) => {
       };
     case types.DELETE_COMMENT:
       // delete comment component
-      commentList = state.commentList.filter((el) => el.commentId !== action.payload)
+      commentList = state.commentList.filter((el) => el.commentId !== action.payload);
       totalComments = state.totalCards > 0 ? state.totalCards - 1 : 0;
       // update state
       return {
@@ -134,11 +141,15 @@ const commentReducer = (state = initialState, action) => {
       };
     case types.CAST_UPVOTE:
       // extract comment component where add button was clicked
-      currComment = state.commentList.filter((el) => el.commentId === action.payload.commentId).pop();
-      currComment.votes.upvotes += 1
+      currComment = state.commentList
+        .filter((el) => el.commentId === action.payload.commentId)
+        .pop();
+      currComment.votes.upvotes += 1;
       currComment.votes.netVotes += 1;
       // find comment with minimum votes in topVoteList and replace it netVotes is greater
-      const [minTopVotesId, minTopVotes] = Object.entries(topVotedList).reduce((acc, curr) => curr[1] < acc[1] ? curr : acc);
+      const [minTopVotesId, minTopVotes] = Object.entries(topVotedList).reduce((acc, curr) =>
+        curr[1] < acc[1] ? curr : acc
+      );
       if (currComment.votes.netVotes >= minTopVotes) {
         delete topVotedList[minTopVotesId];
         topVotedList[currComment.commentId] = currComment.votes.netVotes;
@@ -153,12 +164,16 @@ const commentReducer = (state = initialState, action) => {
       };
     case types.CAST_DOWNVOTE:
       // extract comment component where add button was clicked
-      currComment = state.commentList.filter((el) => el.commentId === action.payload.commentId).pop();
-      currComment.votes.downvotes += 1
+      currComment = state.commentList
+        .filter((el) => el.commentId === action.payload.commentId)
+        .pop();
+      currComment.votes.downvotes += 1;
       currComment.votes.netVotes -= 1;
       // find comment with minimum votes in topVoteList and if netVotes is leq, remove currComment from topVotedList
       if (topVotedList.hasOwnProperty(currComment.commentId)) {
-        const [minTopVotesId, minTopVotes] = Object.entries(topVotedList).reduce((acc, curr) => curr[1] < acc[1] ? curr : acc);
+        const [minTopVotesId, minTopVotes] = Object.entries(topVotedList).reduce((acc, curr) =>
+          curr[1] < acc[1] ? curr : acc
+        );
         if (currComment.votes.netVotes <= minTopVotes) {
           delete topVotedList[currComment.commentId];
         }
@@ -174,7 +189,7 @@ const commentReducer = (state = initialState, action) => {
 
     default: {
       return state;
-    };
+    }
   }
 };
 

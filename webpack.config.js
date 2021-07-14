@@ -28,7 +28,7 @@ module.exports = {
     proxy: {
       // express/postman calls to endpoints
       '/api': {
-        target: 'http://localhost:4000',
+        target: 'http://localhost:3000',
         secure: false,
       },
     },
@@ -42,6 +42,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: ['@babel/plugin-transform-runtime', '@babel/transform-async-to-generator'],
           },
         },
       },
@@ -57,12 +58,12 @@ module.exports = {
           options: {
             limit: 100000,
           },
-        }
-      }
+        },
+      },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', 'ts', 'tsx'],
   },
   plugins: [
     new HtmlWebpackPlugin({
