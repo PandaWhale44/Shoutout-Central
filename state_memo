@@ -11,7 +11,7 @@ shoutoutList:
   - <Number> recipientId
   - <Date> timestamp
 
-Users:
+UserList:
 - <Number> userId
 - <String> email
 - <String> password (8~64 chars, alphanumeric? ~ extendedASCII?)
