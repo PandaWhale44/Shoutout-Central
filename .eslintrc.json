@@ -1,11 +1,23 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "node": true,
+    "jest": true
   },
+  "root": true,
   "extends": ["airbnb", "prettier"],
   "plugins": ["prettier"],
   "rules": {
-      "prettier/prettier": ["error"]
+    "prettier/prettier": ["error"],
+    "arrow-parens": "off",
+    "consistent-return": "off",
+    "func-names": "off",
+    "no-console": "off",
+    "radix": "off",
+    "react/button-has-type": "off",
+    "react/destructuring-assignment": "off",
+    "react/jsx-filename-extension": "off",
+    "react/prop-types": "off"
   }
 }
