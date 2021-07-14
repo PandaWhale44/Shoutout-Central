@@ -7,6 +7,7 @@
     "start": "nodemon server/server.js",
     "build": "NODE_ENV=development webpack -w",
     "dev": "concurrently \"NODE_ENV=production webpack serve --hot --open\" \"nodemon server/server.js\"",
+    "prod": "npm run build && npm start",
     "test": "jest --verbose"
   },
   "nodemonConfig": {
@@ -19,7 +20,7 @@
     "type": "git",
     "url": "git+https://github.com/PandaWhale44/Shoutout-Central.git"
   },
-  "author": "PandaWhale44",
+  "author": "PinkFairyArmadilloAJJJ, PandaWhale44",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/PandaWhale44/Shoutout-Central/issues"

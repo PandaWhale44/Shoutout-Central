@@ -9,6 +9,7 @@
  * ************************************
  */
 
+
 import * as types from '../constants/actionTypes';
 
 // dummy test case
@@ -16,10 +17,10 @@ const initialState = {
   totalComments: 10,
   lastCommentId: 4,
   lastCommentTimestamp: Date.now(),
-  topVotedList: {
+  // topVotedList: {
     // 0003: 32,
     // 0007: 20,
-  },
+  // },
   commentList: [
     {
       commentId: 36,
@@ -28,13 +29,13 @@ const initialState = {
         username: 'Jinhee',
         timestamp: Date.now(),
       },
-      votes: {
-        netVotes: 10,
-        upvotes: 12,
-        downvotes: 2,
-      },
-      parentId: 1,
-      depthLevel: 1,
+      // votes: {
+      //   netVotes: 10,
+      //   upvotes: 12,
+      //   downvotes: 2,
+      // },
+      // parentId: 1,
+      // depthLevel: 1,
     },
   ],
 };

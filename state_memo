@@ -1,0 +1,20 @@
+ShoutoutsDisplay: 
+- <Number> totalShoutouts
+- <Number> lastShoutoutId
+- <Date> lastShoutoutTimestamp
+
+shoutoutList:
+- <Number> shoutoutId
+- <String> contents
+- metadata
+  - <Number> userId
+  - <Number> recipientId
+  - <Date> timestamp
+
+UserList:
+- <Number> userId
+- <String> email
+- <String> password (8~64 chars, alphanumeric? ~ extendedASCII?)
+- <String> username
+- <String> affiliation
+- <Number> totalReceivedShoutouts

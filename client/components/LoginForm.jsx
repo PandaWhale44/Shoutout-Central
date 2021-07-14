@@ -11,7 +11,6 @@
  */
 
 import React, { Component } from 'react';
-import '../App.css';
 
 // const LoginForm = (props) => {
 class LoginForm extends Component {
