@@ -1,11 +1,27 @@
+require('dotenv').config();
 const { Pool } = require('pg');
 
-const PG_URI =
-  'postgres://iuurtcyc:GQXwkVVR44gqFBAJvcsNbbXgzdN40XX7@kashin.db.elephantsql.com/iuurtcyc';
+// TODO: move to .env
+const { PG_URI } = process.env;
 
 const pool = new Pool({
   connectionString: PG_URI,
 });
+
+pool.query('DELETE TABLE users', (err, data) => {
+  if (err) console.error(err);
+  else console.log(data);
+});
+
+// pool.query('./createTables.sql', (err, data) => {
+//   if (err) console.error(err);
+//   else console.log(data);
+// });
+
+// pool.query('SELECT * FROM users LIMIT 10', (err, data) => {
+//   if (err) console.error](err);
+//   else console.log(data);
+// });
 
 // Adding some notes about the database here will be helpful for future you or other developers.
 // Schema for the database can be found below:

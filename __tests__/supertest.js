@@ -72,11 +72,8 @@ describe('Route integration', () => {
 
     // })
   });
-  describe('/api/comment/post', () => {
-    
-  })
 
-  describe('/api/auth', () => {
+  describe('/api/user/signin', () => {
     describe('POST', () => {});
   });
 

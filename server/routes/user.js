@@ -5,9 +5,7 @@ const cookieController = require('../controllers/cookieController');
 
 const router = express.Router();
 
-router.get('/getuser', userController.getUsers, (req, res) =>
-  res.status(200).json(res.locals.users)
-);
+router.get('/user', userController.getUsers, (req, res) => res.status(200).json(res.locals.users));
 
 router.get('/setcookie', cookieController.setCookie, (req, res) => res.status(200).end());
 
