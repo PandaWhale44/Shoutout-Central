@@ -1,4 +1,4 @@
-# BlindForum
+# Shoutout Central
 
 The application will have the following hierarchical structure:
 

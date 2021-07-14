@@ -1,12 +1,13 @@
 {
-  "name": "blindforum",
+  "name": "shoutout-central",
   "version": "1.0.0",
-  "description": "single forum where users can leave comments",
+  "description": "A platform that is centered around exchanging shoutouts and upvotes, enabling displays of mutual appreciation.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon server/server.js",
     "build": "NODE_ENV=development webpack -w",
-    "dev": "concurrently \"NODE_ENV=production webpack serve --hot --open\" \"nodemon server/server.js\""
+    "dev": "concurrently \"NODE_ENV=production webpack serve --hot --open\" \"nodemon server/server.js\"",
+    "test": "jest --verbose"
   },
   "nodemonConfig": {
     "ignore": [
@@ -16,14 +17,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PinkFairyArmadilloAJJJ/blindForum.git"
+    "url": "git+https://github.com/PandaWhale44/Shoutout-Central.git"
   },
-  "author": "PinkFairyArmadillo",
+  "author": "PandaWhale44",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PinkFairyArmadilloAJJJ/blindForum/issues"
+    "url": "https://github.com/PandaWhale44/Shoutout-Central/issues"
   },
-  "homepage": "https://github.com/PinkFairyArmadilloAJJJ/blindForum#readme",
+  "homepage": "https://github.com/PandaWhale44/Shoutout-Central#readme",
+  "jest": {
+    "globalSetup": "./jest-setup.js",
+    "globalTeardown": "./jest-teardown.js",
+    "testEnvironment": "jsdom"
+  },
   "dependencies": {
     "bcryptjs": "^2.3.0",
     "cookie-parser": "^1.4.1",
@@ -31,23 +37,20 @@
     "ejs": "^2.6.1",
     "express": "^4.17.1",
     "express-session": "^1.13.0",
-    "mongoose": "^5.13.2",
     "pg": "^8.5.1",
-    "prop-types": "^15.6.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hot-loader": "^4.6.3",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
-    "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.14.5",
+    "@babel/plugin-transform-async-to-generator": "^7.1.0",
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.14.5",
@@ -60,6 +63,9 @@
     "concurrently": "^6.2.0",
     "css-loader": "^5.2.6",
     "dotenv": "^10.0.0",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "enzyme-to-json": "^3.3.4",
     "eslint": "^7.30.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
@@ -72,18 +78,31 @@
     "html-webpack-plugin": "^5.3.2",
     "http-proxy-middleware": "^0.19.1",
     "isomorphic-fetch": "^3.0.0",
+    "jest": "^27.0.6",
+    "jest-puppeteer": "^3.4.0",
+    "jsdom": "^11.12.0",
     "mini-css-extract-plugin": "^2.1.0",
     "node-fetch": "^2.6.1",
+    "node-sass": "^6.0.1",
     "nodemon": "^2.0.7",
+    "puppeteer": "^1.9.0",
     "prettier": "^2.3.2",
+    "prop-types": "^15.6.2",
+    "react-addons-test-utils": "^15.6.2",
+    "react-hot-loader": "^4.6.3",
+    "react-test-renderer": "^16.5.2",
+    "redux-devtools-extension": "^2.13.5",
+    "regenerator-runtime": "^0.13.7",
     "sass": "^1.35.1",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.0.0",
+    "supertest": "^3.3.0",
     "url-loader": "^2.0.1",
     "webpack": "^5.44.0",
     "webpack-cli": "^4.7.2",
     "webpack-dev-middleware": "^5.0.0",
     "webpack-dev-server": "^3.11.2",
-    "webpack-hot-middleware": "^2.24.3"
+    "webpack-hot-middleware": "^2.24.3",
+    "zombie": "^6.1.3"
   }
 }
