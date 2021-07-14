@@ -1,10 +1,11 @@
-;const { Pool } = require('pg');
+const { Pool } = require('pg');
 
-const PG_URI = 'postgres://bdzunxes:QbKW1H0AtTkMG8vcL3P3uBufeVcbm3UB@batyr.db.elephantsql.com/bdzunxes';
+const PG_URI =
+  'postgres://iuurtcyc:GQXwkVVR44gqFBAJvcsNbbXgzdN40XX7@kashin.db.elephantsql.com/iuurtcyc';
 
 const pool = new Pool({
-  connectionString: PG_URI
-})
+  connectionString: PG_URI,
+});
 
 // Adding some notes about the database here will be helpful for future you or other developers.
 // Schema for the database can be found below:
@@ -18,5 +19,5 @@ module.exports = {
   query: (text, params, callback) => {
     console.log('executed query', text);
     return pool.query(text, params, callback);
-  }
+  },
 };

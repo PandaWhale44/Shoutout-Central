@@ -33,16 +33,19 @@ describe('db unit tests', () => {
     fs.writeFile(testJsonFile, JSON.stringify([]), done);
   });
 
+  // SELECT * FROM users
   describe('#getUsers', () => {
     it('returns list of all users from the db', () => {});
 
     it('works if the list of users is empty', () => {});
   });
+  
   describe('#authUsers', () => {
     const table = JSON.parse(fs.readFileSync('./__tests__/testcases/db_authUsers'));
     // it('returns an error when
     // it('returns an error when
   });
+  // INSERT INTO
   describe('#addUser', () => {
     const table = JSON.parse(fs.readFileSync('./__tests__/testcases/db_addUser'));
     // it('returns an error when

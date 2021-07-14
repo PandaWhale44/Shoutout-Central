@@ -4,7 +4,7 @@ const express = require('express');
 // const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const pg = require('pg');
+
 const userRouter = require('./routes/user');
 const commentRouter = require('./routes/comments');
 
