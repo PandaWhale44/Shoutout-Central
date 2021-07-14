@@ -22,16 +22,16 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.ADD_USER:
-      fetch('/api/user/signup', {
-        method: 'POST',
-        mode: 'no-cors',
-        // headers: {
-        //   'Content-Type': 'application/json'
-        // },
-        body: { ...action.payload },
-      })
-        .then((data) => console.log(data))
-        .catch((err) => console.error(err));
+      // fetch('/api/user/signup', {
+      //   method: 'POST',
+      //   mode: 'no-cors',
+      //   // headers: {
+      //   //   'Content-Type': 'application/json'
+      //   // },
+      //   body: { ...action.payload },
+      // })
+      //   .then((data) => console.log(data))
+      //   .catch((err) => console.error(err));
       return {
         ...state,
         ...action.payload,

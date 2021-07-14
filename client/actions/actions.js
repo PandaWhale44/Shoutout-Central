@@ -10,8 +10,7 @@
  */
 
 // import actionType constants
-import * as types from '../constants/actionTypes.js';
-
+import * as types from '../constants/actionTypes';
 
 // Add new Comment action creator
 export const addCommentActionCreator = (contents, username, parentId) => ({
@@ -20,7 +19,7 @@ export const addCommentActionCreator = (contents, username, parentId) => ({
     contents,
     username,
     parentId,
-  }
+  },
 });
 
 // edit Comment action creator
@@ -29,7 +28,7 @@ export const editCommentActionCreator = (commentId, contents) => ({
   payload: {
     commentId,
     contents,
-  }
+  },
 });
 
 // delete Comment action creator
@@ -67,4 +66,4 @@ export const authUserActionCreator = (username, password) => ({
     username,
     password,
   },
-})
+});
