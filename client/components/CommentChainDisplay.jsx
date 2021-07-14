@@ -12,7 +12,6 @@
 import React, { Component } from 'react';
 import Comment from './Comment';
 
-
 class CommentsDisplay extends Component {
   constructor(props) {
     super(props);
@@ -22,21 +21,23 @@ class CommentsDisplay extends Component {
       lastCommentTimestamp: new Date(),
       topVotedList: [],
       commentList: [],
-    }
+    };
   }
-  
-  componentDidMount () {
+
+  componentDidMount() {
     fetch('/api/comment/get', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
-      .then(res => res.json())
-      .then(doc => this.setState({
-        commentList: doc
-      }))
-      .catch(err => console.error(err));
+      .then((res) => res.json())
+      .then((doc) =>
+        this.setState({
+          commentList: doc,
+        })
+      )
+      .catch((err) => console.error(err));
   }
 
   render() {
@@ -50,10 +51,10 @@ class CommentsDisplay extends Component {
           metadata={comment.metadata}
           votes={comment.votes}
           parentId={comment.parentId}
-          depthLevel={comment.depthLevel}  
+          depthLevel={comment.depthLevel}
         />
-      )
-    })
+      );
+    });
     return (
       <div className="commentsContainer">
         <p>Testing CommentsDisplay...</p>
@@ -62,6 +63,6 @@ class CommentsDisplay extends Component {
       </div>
     );
   }
-};
+}
 
 export default CommentsDisplay;
