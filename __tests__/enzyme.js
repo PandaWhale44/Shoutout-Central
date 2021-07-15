@@ -50,8 +50,9 @@ describe('React unit tests', () => {
     const props = {
       email: '',
       password: '',
-      username: '',
-      affiliation: ''
+      firstName: '',
+      lastName: '',
+      affiliation: '',
     };
     beforeAll(() => {
       wrapper = shallow(<SignupForm {...props} />);
@@ -60,13 +61,10 @@ describe('React unit tests', () => {
     it('Renders 4 input fields and a Create Account Button', () => {
       expect(wrapper.find('button').length).toEqual(1);
       expect(wrapper.find('button')[0].className).toEqual('Signup-btn');
-      expect(wrapper.find({ type: 'input' }).length).toEqual(4);
+      expect(wrapper.find({ type: 'input' }).length).toEqual(5);
     });
   })
 });
-// sign up form tests:
-
-// check if all fields are inputed
 
 // check if all fields are correct type
 
