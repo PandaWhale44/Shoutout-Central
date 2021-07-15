@@ -12,21 +12,20 @@ module.exports = {
   // add users to database
   addUser: `
     INSERT INTO users 
-    (email, password, firstName, lastName, affiliation)
-    VALUES ($1, $2, $3, $4, $5);
+    (email, password, firstName, lastName, affiliation, points)
+    VALUES ($1, $2, $3, $4, $5, $6);
   `,
   // update user values, used when incrementing user points when receiving a shoutout
   // (can be used in password recovery and editing user profile for stretch features)
   updateUser: `
     UPDATE users
-    (email, password, firstName, lastName, affiliation, points)
-    VALUES ($1, $2, $3, $4, $5, $6)
-    WHERE email=$1
+    SET points = $2
+    WHERE email = $1;
   `,
   // deleting user from database
   deleteUser: `
     DELETE FROM users
-    WHERE _id=$1 OR username=$1;
+    WHERE _id=$1 OR email=$1;
   `,
   // retrieve all shoutouts, used for displaying chat history
   getShoutouts: `
