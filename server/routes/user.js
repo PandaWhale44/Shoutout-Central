@@ -1,7 +1,5 @@
 const express = require('express');
-const userController = require('../controllers/userController');
-// const sessionController = require('../controllers/sessionController');
-// const cookieController = require('../controllers/cookieController');
+const userController = require('../controllers/userController.js');
 
 const router = express.Router();
 
@@ -39,7 +37,7 @@ router.post(
   (req, res) => {
     console.log('signup successful');
     res.locals.currentUser = req.body;
-    return res.redirect('../../client/components/signin').json(req.body);
+    res.redirect('../../client/components/signin').json(req.body);
   }
 );
 

@@ -6,7 +6,7 @@ module.exports = {
   `,
   // retrieve all users, orders from highest points to lowest in shoutouts
   getAllUsers: `
-    SELECT * FROM users;
+    SELECT * FROM users
     ORDER BY points DESC;
   `,
   // add users to database
@@ -30,11 +30,12 @@ module.exports = {
   `,
   // retrieve all shoutouts, used for displaying chat history
   getShoutouts: `
-    SELECT * FROM shoutouts;
-    ORDER BY timestamp DESC;
+    SELECT * FROM shoutouts
+    ORDER BY timestamp DESC
+    LIMIT 20;
   `,
   // adding shoutout to history
-  addShoutout: `
+  postShoutout: `
     INSERT INTO shoutouts
     (contents, sender_id, recipient_id, timestamp)
     VALUES ($1, $2, $3, $4);

@@ -1,10 +1,9 @@
-require('dotenv').config();
-const path = require('path');
 const express = require('express');
-// const cookieParser = require('cookie-parser');
-
-const userRouter = require('./routes/user');
-const shoutoutRouter = require('./routes/shoutout');
+const path = require('path');
+// import cookieParser from 'cookie-parser';
+// import dotenv from 'dotenv';
+const userRouter = require('./routes/user.js');
+const shoutoutRouter = require('./routes/shoutout.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,7 +13,7 @@ app.use(express.json());
 // app.use(cookieParser());
 
 // statically serve everything in the build folder on the route '/build'
-app.use(express.static(path.resolve(__dirname, '../build')));
+app.use(express.static(path.resolve('../build')));
 
 /**
  * define route handlers

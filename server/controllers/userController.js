@@ -1,7 +1,8 @@
-import db from '../db/db';
-import q from '../db/queries';
-
 const bcrypt = require('bcryptjs');
+
+const db = require('../db/db.js');
+const q = require('../db/queries.js');
+
 // TODO: reset to 14 for production release.
 const SALT_WORK_FACTOR = 6; // set low for testing.
 
@@ -13,6 +14,7 @@ const userController = {};
  */
 
 userController.getAllUsers = (req, res, next) => {
+  db.query(q.getAllUsers, (err, data) => {
     if (err) return next(err);
     console.log(data);
     res.locals.users = data.rows;
@@ -26,7 +28,7 @@ userController.getAllUsers = (req, res, next) => {
 // const submitted_info = docuemnt.addEventListener('submit', 'form').values
 // check if the inputted username already exists in the table
 
-userController.addUser = async (req, res, next) => {
+userController.createUser = async (req, res, next) => {
   const { email, password, firstName, lastName, affiliation } = req.body;
   if (!email || !password) return next('empty field in userController.addUser');
   const valueObj = { email, password, firstName, lastName, affiliation };

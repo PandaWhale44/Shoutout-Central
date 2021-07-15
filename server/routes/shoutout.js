@@ -1,5 +1,5 @@
 const express = require('express');
-const shoutoutController = require('../controllers/shoutoutController');
+const shoutoutController = require('../controllers/shoutoutController.js');
 
 const router = express.Router();
 
@@ -15,7 +15,7 @@ router.get('/', shoutoutController.getShoutouts, (req, res) =>
  * posting shoutouts
  */
 
-router.post('/', shoutoutController.addShoutout, (req, res) =>
+router.post('/', shoutoutController.postShoutout, (req, res) =>
   res.status(200).end('shoutout posted')
 );
 
