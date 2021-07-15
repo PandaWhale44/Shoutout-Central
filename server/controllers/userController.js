@@ -12,8 +12,7 @@ const userController = {};
  * before moving on to next middleware.
  */
 
-userController.getUsers = (req, res, next) => {
-  db.query(q.getUsers, (err, data) => {
+userController.getAllUsers = (req, res, next) => {
     if (err) return next(err);
     console.log(data);
     res.locals.users = data.rows;
@@ -69,7 +68,7 @@ userController.verifyUser = async (req, res, next) => {
   const [userId, hashedPassword] = [userData._id, userData.password];
 
   bcrypt.compare(password, hashedPassword, (err, result) => {
-    if (err || !result) res.redirect('./../client/signin', { error: 'wrong password' });
+    if (err || !result) res.redirect('../../client/components/signin', { error: 'wrong password' });
     res.locals.currentUser = { userId, email };
     res.status(200).send('login successful!');
     return next();
