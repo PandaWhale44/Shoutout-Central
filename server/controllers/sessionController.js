@@ -1,12 +1,10 @@
-// const Session = require('../models/sessionModel');
-// const User = require('../models/userModel');
-// // const { locals } = require('../server');
+// // // const { locals } = require('../server');
 
-// const sessionController = {};
+// // const sessionController = {};
 
-// /**
-//  * startSession - create and save a new Session into the database.
-//  */
+// // /**
+// //  * startSession - create and save a new Session into the database.
+// //  */
 
 // sessionController.startSession = (req, res, next) => {
 //   /*

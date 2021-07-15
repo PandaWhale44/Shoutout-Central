@@ -1,10 +1,22 @@
-;const { Pool } = require('pg');
+require('dotenv').config();
+const { Pool } = require('pg');
 
-const PG_URI = 'postgres://bdzunxes:QbKW1H0AtTkMG8vcL3P3uBufeVcbm3UB@batyr.db.elephantsql.com/bdzunxes';
+// TODO: move to .env
+const { PG_URI } = process.env;
 
 const pool = new Pool({
-  connectionString: PG_URI
-})
+  connectionString: PG_URI,
+});
+
+// pool.query('./createTables.sql', (err, data) => {
+//   if (err) console.error(err);
+//   else console.log(data);
+// });
+
+// pool.query('SELECT * FROM users LIMIT 10', (err, data) => {
+//   if (err) console.error](err);
+//   else console.log(data);
+// });
 
 // Adding some notes about the database here will be helpful for future you or other developers.
 // Schema for the database can be found below:
@@ -18,5 +30,5 @@ module.exports = {
   query: (text, params, callback) => {
     console.log('executed query', text);
     return pool.query(text, params, callback);
-  }
+  },
 };
