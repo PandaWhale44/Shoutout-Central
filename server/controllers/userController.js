@@ -1,7 +1,8 @@
-import db from '../db/db';
-import q from '../db/queries';
-
 const bcrypt = require('bcryptjs');
+
+const db = require('../db/db.js');
+const q = require('../db/queries.js');
+
 // TODO: reset to 14 for production release.
 const SALT_WORK_FACTOR = 6; // set low for testing.
 
@@ -12,8 +13,8 @@ const userController = {};
  * before moving on to next middleware.
  */
 
-userController.getUsers = (req, res, next) => {
-  db.query(q.getUsers, (err, data) => {
+userController.getAllUsers = (req, res, next) => {
+  db.query(q.getAllUsers, (err, data) => {
     if (err) return next(err);
     console.log(data);
     res.locals.users = data.rows;
@@ -27,7 +28,7 @@ userController.getUsers = (req, res, next) => {
 // const submitted_info = docuemnt.addEventListener('submit', 'form').values
 // check if the inputted username already exists in the table
 
-userController.addUser = async (req, res, next) => {
+userController.createUser = async (req, res, next) => {
   const { email, password, firstName, lastName, affiliation } = req.body;
   if (!email || !password) return next('empty field in userController.addUser');
   const valueObj = { email, password, firstName, lastName, affiliation };
@@ -69,7 +70,7 @@ userController.verifyUser = async (req, res, next) => {
   const [userId, hashedPassword] = [userData._id, userData.password];
 
   bcrypt.compare(password, hashedPassword, (err, result) => {
-    if (err || !result) res.redirect('./../client/signin', { error: 'wrong password' });
+    if (err || !result) res.redirect('../../client/components/signin', { error: 'wrong password' });
     res.locals.currentUser = { userId, email };
     res.status(200).send('login successful!');
     return next();
