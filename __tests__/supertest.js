@@ -2,6 +2,10 @@ const request = require('supertest');
 
 const server = 'http://localhost:3000';
 
+describe('bcrypt Authentication', () => {
+  
+});
+
 describe('Route integration', () => {
   describe('/', () => {
     describe('GET', () => {
@@ -13,13 +17,41 @@ describe('Route integration', () => {
     });
   });
 
-  describe('/timeline', () => {});
+  describe('/homepage', () => {
+    describe('GET', () => {
+      it('responds with 200 status and text/html content type', () =>
+        request(server)
+          .get('/homepage')
+          .expect('Content-Type', /text\/html/)
+          .expect(200));
+  });
 
-  describe('/signin', () => {});
+  describe('/signin', () => {
+    describe('GET', () => {
+      it('responds with 200 status and text/html content type', () =>
+        request(server)
+          .get('/signin')
+          .expect('Content-Type', /text\/html/)
+          .expect(200));
+  });
 
-  describe('/signup', () => {});
+  describe('/signup', () => {
+    describe('GET', () => {
+      it('responds with 200 status and text/html content type', () =>
+        request(server)
+          .get('/signup')
+          .expect('Content-Type', /text\/html/)
+          .expect(200));
+  });
 
-  describe('/rankboard', () => {});
+  describe('/rankboard', () => {
+    describe('GET', () => {
+      it('responds with 200 status and text/html content type', () =>
+        request(server)
+          .get('/rankboard')
+          .expect('Content-Type', /text\/html/)
+          .expect(200));
+  });
 
   describe('/api/user', () => {
     describe('GET', () => {
@@ -39,6 +71,10 @@ describe('Route integration', () => {
     // describe('DELETE', () => {
 
     // })
+  });
+
+  describe('/api/user/signin', () => {
+    describe('POST', () => {});
   });
 
   describe('/api/shoutout', () => {

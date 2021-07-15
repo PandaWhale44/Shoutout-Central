@@ -1,35 +1,35 @@
-// const Session = require('../models/sessionModel');
-// const User = require('../models/userModel');
-// // const { locals } = require('../server');
+const cookieParser = require('cookie-parser');
 
-// const sessionController = {};
+const sessionController = {};
 
-// /**
-//  * startSession - create and save a new Session into the database.
-//  */
+/**
+ * isLoggedIn - find the appropriate session for this request in the database, then
+ * verify whether or not the session is still valid.
+ */
+sessionController.isLoggedIn = (req, res, next) => {
+  console.log(req.get('cookie').search('/ssid=.+[;\\w]/'));
+  Session.find({ cookieId: req.get('cookie').search('/ssid=.+[;\\w]/') }, (err, data) => {
+    console.log(data);
+    if (err || !data || !data.length) return next(err);
+    if (Date.now() - data.createdAt < 30000) return next();
+    res.render('./../client/signup', { error: 'session expired' });
+  });
+};
 
-// sessionController.startSession = (req, res, next) => {
-//   /*
-//   const getUsers = 'SELECT username FROM user_info;';
-//   User.query(getUsers, (err, data) => {
-//     console.log('User db: ', data);
-//   });
-// */
+/**
+ * startSession - create and save a new Session into the database.
+ */
+sessionController.startSession = (req, res, next) => {
+  User.find({ username: req.body.username }, (err, data) => {
+    res.locals.user = data[0];
+  });
+  const newSession = new Session({
+    cookieId: res.locals.user._id,
+  });
+  newSession.save((err, newSession) => {
+    if (err) return next(err);
+    return next();
+  });
+};
 
-//   const ssid = req.rawHeaders[5];
-
-//   Session.create({ cookieId: ssid }, (err, data) => {
-//     if (err) {
-//       res.render('../../client/signup', { error: err });
-//       res.end();
-//     } else {
-//       Session.find({}, (err, data) => {
-//         console.log('Session db: ', data);
-//       });
-//       // console.log(Session.schema.paths.cookieId);
-//       return next();
-//     }
-//   });
-// };
-
-// module.exports = sessionController;
+module.exports = sessionController;

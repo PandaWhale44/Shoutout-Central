@@ -11,10 +11,11 @@ shoutoutList:
   - <Number> recipientId
   - <Date> timestamp
 
-UserList:
+userList:
 - <Number> userId
 - <String> email
+- <String> firstName
+- <String> lastName
 - <String> password (8~64 chars, alphanumeric? ~ extendedASCII?)
-- <String> username
 - <String> affiliation
-- <Number> totalReceivedShoutouts
+- <Number> points

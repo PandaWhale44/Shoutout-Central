@@ -1,5 +1,4 @@
 const cookieController = {};
-// const User = require('../models/userModel');
 
 /**
  * setCookie - set a cookie with a random number
@@ -15,7 +14,7 @@ cookieController.setCookie = (req, res, next) => {
  */
 cookieController.setSSIDCookie = (req, res, next) => {
   const ssid = req.rawHeaders[5];
-  res.cookie('ssid', `${ssid}`, { httpOnly: false, secure: false });
+  res.cookie('ssid', `${ssid}`, { httpOnly: true, secure: false });
   // console.log(ssid);
   return next();
 };

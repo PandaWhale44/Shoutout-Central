@@ -1,4 +1,10 @@
-const User = require('../models/userModel');
+const bcrypt = require('bcryptjs');
+
+const db = require('../db/db.js');
+const q = require('../db/queries.js');
+
+// TODO: reset to 14 for production release.
+const SALT_WORK_FACTOR = 6; // set low for testing.
 
 const userController = {};
 
@@ -7,14 +13,11 @@ const userController = {};
  * before moving on to next middleware.
  */
 
-const getUsers = 'SELECT username FROM user_info;';
-
-userController.getUsers = (req, res, next) => {
-  User.query(getUsers, (err, response) => {
-    if (err) {
-      return next(err.stack); // maybe check out better error messaging
-    }
-    res.locals.users = response.rows;
+userController.getAllUsers = (req, res, next) => {
+  db.query(q.getAllUsers, (err, data) => {
+    if (err) return next(err);
+    console.log(data);
+    res.locals.users = data.rows;
     return next();
   });
 };
@@ -25,23 +28,31 @@ userController.getUsers = (req, res, next) => {
 // const submitted_info = docuemnt.addEventListener('submit', 'form').values
 // check if the inputted username already exists in the table
 
-userController.createUser = (req, res, next) => {
-  // storing req.body - contains username, pw, email, and nickname - to objChar
-  // console.log(req.query);
-  const objChar = req.query;
-  // declare empty array that will contain values only
-  const values = [];
-  // iterate through the object - extract values only and store them to values array.
-  for (let i = 0; i < Object.keys(objChar).length; i += 1) {
-    values.push(objChar[Object.keys(objChar)[i]]);
-  }
-  // console.log(values);
+userController.createUser = async (req, res, next) => {
+  const { email, password, firstName, lastName, affiliation } = req.body;
+  if (!email || !password) return next('empty field in userController.addUser');
+  const valueObj = { email, password, firstName, lastName, affiliation };
 
-  const createUserAcct =
-    'INSERT INTO user_info (username, password, nickname, email) VALUES ($1, $2, $3, $4);';
+  valueObj.password = await bcrypt
+    .hash(valueObj.password, SALT_WORK_FACTOR)
+    .catch((err) => next(err));
+  console.log(valueObj.password);
+  valueObj.points = 0;
 
-  User.query(createUserAcct, values, (err, response) => {
-    if (err) return next(err.stack);
+  const value = Object.values(valueObj);
+
+  db.query(q.addUser, value, (err, result) => {
+    if (err) return next(err);
+    console.log(result);
+    return next();
+  });
+};
+
+userController.editUser = async (req, res, next) => {
+  const { email, points } = req.body;
+  db.query(q.updateUser, [email, points], (err, result) => {
+    if (err) return next(err);
+    console.log(result);
     return next();
   });
 };
@@ -52,25 +63,17 @@ userController.createUser = (req, res, next) => {
  * against the password stored in the database.
  */
 
-userController.verifyUser = (req, res, next) => {
-  // console.log(req.body);
-  // const objChar = req.body;
-  const value = [req.query.username];
-  const { password } = req.query;
+userController.verifyUser = async (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password) return next('empty field in userController.verifyUser');
+  const userData = await db.query(q.getUser, [email]).catch((err) => next(err));
+  const [userId, hashedPassword] = [userData._id, userData.password];
 
-  const findUser = `SELECT password FROM user_info WHERE username = $1;`;
-
-  User.query(findUser, value, (err, response) => {
-    const dbpw = { ...response.rows }['0'].password;
-    // console.log('password: ', password);
-    if (err || password !== dbpw) {
-      console.error(err);
-    } else {
-      console.log(response);
-      // res.status(200).end('../..client/secret');
-      res.status(200).send('login successful!');
-      return next();
-    }
+  bcrypt.compare(password, hashedPassword, (err, result) => {
+    if (err || !result) res.redirect(200, '../../client/components/signin');
+    console.log(password, hashedPassword);
+    res.locals.currentUser = { userId, email };
+    return next();
   });
 };
 
