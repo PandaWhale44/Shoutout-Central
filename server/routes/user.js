@@ -16,6 +16,12 @@ router.post(
   }
 );
 
+router.patch('/', userController.editUser, (req, res) => {
+  res.locals.updateUser = req.body;
+  console.log('update successful');
+  return res.status(200).json(res.locals.updateUser);
+});
+
 // router.get('/setcookie', cookieController.setCookie, (req, res) => res.status(200).end());
 
 // router.get(
@@ -37,7 +43,7 @@ router.post(
   (req, res) => {
     console.log('signup successful');
     res.locals.currentUser = req.body;
-    res.redirect('../../client/components/signin').json(req.body);
+    res.redirect('../../client/components/signin').json(res.locals.currentUser);
   }
 );
 
