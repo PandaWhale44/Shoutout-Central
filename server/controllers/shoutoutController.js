@@ -1,5 +1,5 @@
-import db from '../db/db';
-import q from '../db/queries';
+const db = require('../db/db.js');
+const q = require('../db/queries.js');
 
 const shoutoutController = {};
 
@@ -22,7 +22,7 @@ shoutoutController.postShoutout = (req, res, next) => {
   const valueObj = { contents, sender_id, recipient_id, timestamp };
   const value = Object.values(valueObj);
 
-  db.query(q.addShoutout, value, (err, result) => {
+  db.query(q.postShoutout, value, (err, result) => {
     if (err) return next(err);
     return next();
   });
