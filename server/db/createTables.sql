@@ -35,6 +35,13 @@ CREATE TABLE stats (
   "lastShoutoutTimestamp" varchar
 );
 
+CREATE TABLE sessions (
+  "_id" serial NOT NULL,
+  "user_id" bigint NOT NULL,
+  "token" varchar NOT NULL,
+  CONSTRAINT "sessions_pk" PRIMARY KEY ("_id")
+);
+
 ALTER TABLE shoutouts ADD CONSTRAINT "users_fk0" FOREIGN KEY ("sender_id") REFERENCES users("_id");
 ALTER TABLE shoutouts ADD CONSTRAINT "users_fk1" FOREIGN KEY ("recipient_id") REFERENCES users("_id");
-
+ALTER TABLE sessions ADD CONSTRAINT "users_fk0" FOREIGN KEY ("user_id") REFERENCES users("_id");
