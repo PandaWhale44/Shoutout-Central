@@ -1,22 +1,19 @@
-require('dotenv').config();
-const path = require('path');
 const express = require('express');
-const cookieParser = require('cookie-parser');
-
-const userRouter = require('./routes/user');
-const shoutoutRouter = require('./routes/shoutout');
-const userController = require('./controllers/userController');
+const path = require('path');
+// import cookieParser from 'cookie-parser';
+// import dotenv from 'dotenv';
+const userRouter = require('./routes/user.js');
+const shoutoutRouter = require('./routes/shoutout.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-/**
- * Automatically parse urlencoded body content from incoming requests and place it
- * in req.body
- */
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cookieParser());
+// app.use(cookieParser());
+
+// statically serve everything in the build folder on the route '/build'
+app.use(express.static(path.resolve('../build')));
 
 /**
  * define route handlers
@@ -24,21 +21,6 @@ app.use(cookieParser());
 
 app.use('/api/user', userRouter);
 app.use('/api/shoutout', shoutoutRouter);
-
-// statically serve everything in the build folder on the route '/build'
-app.use(express.static(path.resolve(__dirname, '../build')));
-
-// TODO: move api key to .env file
-
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get('/login', userController.verifyUser, (req, res) => {
-  res.status(200).end('../client/secret', { currentUser: res.locals.currentUser });
-});
-
-app.get('/sign-up', userController.addUser, (req, res) => {
-  res.status(200).end('../client/secret', { currentUser: res.locals.currentUser });
-});
 
 /**
  * 404 handler
