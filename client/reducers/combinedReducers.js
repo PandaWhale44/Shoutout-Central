@@ -12,14 +12,16 @@
 import { combineReducers } from 'redux';
 
 // import all reducers here
-import commentReducer from './commentReducer';
+// import shoutoutReducer from './shoutoutReducer';
 import userReducer from './userReducer';
+import loginReducer from './loginReducer';
 
 // combine reducers
 const reducers = combineReducers({
   // if we had other reducers, they would go here
-  comment: commentReducer,
-  user: userReducer,
+  // shoutoutReducer,
+  loginReducer,
+  userReducer,
 });
 
 // make the combined reducers available for import

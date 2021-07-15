@@ -12,14 +12,18 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './App';
-import store from './store';
 import './App.css';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import App from './App';
+import reducers from './reducers/combinedReducers';
+
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
 
 render(
-  // wrap the App in the Provider Component and pass in the store
   <Provider store={store}>
-    <App />
-  </Provider>
-  , document.querySelector('#root')
+    <App/>
+    </Provider>,
+  document.getElementById("root")
 );
