@@ -1,5 +1,4 @@
 const bcrypt = require('bcryptjs');
-
 const db = require('../db/db.js');
 const q = require('../db/queries.js');
 
@@ -32,9 +31,14 @@ userController.createUser = async (req, res, next) => {
   const { email, password, firstName, lastName, affiliation } = req.body;
   if (!email || !password) return next('empty field in userController.addUser');
   const valueObj = { email, password, firstName, lastName, affiliation };
-  const value = Object.values(valueObj);
 
-  value.password = await bcrypt.hash(value.password, SALT_WORK_FACTOR).catch((err) => next(err));
+  valueObj.password = await bcrypt
+    .hash(valueObj.password, SALT_WORK_FACTOR)
+    .catch((err) => next(err));
+  console.log(valueObj.password);
+  valueObj.points = 0;
+
+  const value = Object.values(valueObj);
 
   db.query(q.addUser, value, (err, result) => {
     if (err) return next(err);
@@ -44,13 +48,8 @@ userController.createUser = async (req, res, next) => {
 };
 
 userController.editUser = async (req, res, next) => {
-  const { email, password, firstName, lastName, affiliation, points } = req.body;
-  const valueObj = { email, password, firstName, lastName, affiliation, points };
-  const value = Object.values(valueObj);
-
-  if (password)
-    value.password = await bcrypt.hash(value.password, SALT_WORK_FACTOR).catch((err) => next(err));
-  db.query(q.editUser, value, (err, result) => {
+  const { email, points } = req.body;
+  db.query(q.updateUser, [email, points], (err, result) => {
     if (err) return next(err);
     console.log(result);
     return next();
@@ -66,13 +65,13 @@ userController.editUser = async (req, res, next) => {
 userController.verifyUser = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) return next('empty field in userController.verifyUser');
-  const userData = await db.query(q.getUser, email).catch((err) => next(err));
+  const userData = await db.query(q.getUser, [email]).catch((err) => next(err));
   const [userId, hashedPassword] = [userData._id, userData.password];
 
   bcrypt.compare(password, hashedPassword, (err, result) => {
-    if (err || !result) res.redirect('../../client/components/signin', { error: 'wrong password' });
+    if (err || !result) res.redirect(200, '../../client/components/signin');
+    console.log(password, hashedPassword);
     res.locals.currentUser = { userId, email };
-    res.status(200).send('login successful!');
     return next();
   });
 };
