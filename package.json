@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A platform that is centered around exchanging shoutouts and upvotes, enabling displays of mutual appreciation.",
   "main": "index.js",
-
   "scripts": {
     "start": "nodemon server/server.js",
     "build": "NODE_ENV=development webpack -w",
@@ -53,6 +52,7 @@
     "react-router-dom": "^4.3.1",
     "reactstrap": "^8.9.0",
     "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "resolve-url-loader": "^4.0.0"
   },
