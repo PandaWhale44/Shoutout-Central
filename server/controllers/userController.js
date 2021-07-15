@@ -28,16 +28,30 @@ userController.getUsers = (req, res, next) => {
 // check if the inputted username already exists in the table
 
 userController.addUser = async (req, res, next) => {
-  const { email, password, username, affiliation } = req.body;
+  const { email, password, firstName, lastName, affiliation } = req.body;
   if (!email || !password) return next('empty field in userController.addUser');
-  const valueObj = { email, password, username, affiliation };
+  const valueObj = { email, password, firstName, lastName, affiliation };
   const value = Object.values(valueObj);
 
   value.password = await bcrypt.hash(value.password, SALT_WORK_FACTOR).catch((err) => next(err));
 
-  db.query(q.addUser, value, (err, data) => {
+  db.query(q.addUser, value, (err, result) => {
     if (err) return next(err);
-    console.log(data);
+    console.log(result);
+    return next();
+  });
+};
+
+userController.editUser = async (req, res, next) => {
+  const { email, password, firstName, lastName, affiliation, points } = req.body;
+  const valueObj = { email, password, firstName, lastName, affiliation, points };
+  const value = Object.values(valueObj);
+
+  if (password)
+    value.password = await bcrypt.hash(value.password, SALT_WORK_FACTOR).catch((err) => next(err));
+  db.query(q.editUser, value, (err, result) => {
+    if (err) return next(err);
+    console.log(result);
     return next();
   });
 };
@@ -56,7 +70,7 @@ userController.verifyUser = async (req, res, next) => {
 
   bcrypt.compare(password, hashedPassword, (err, result) => {
     if (err || !result) res.redirect('./../client/signin', { error: 'wrong password' });
-    res.locals.currUser = { userId, email };
+    res.locals.currentUser = { userId, email };
     res.status(200).send('login successful!');
     return next();
   });

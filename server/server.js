@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const userRouter = require('./routes/user');
 const shoutoutRouter = require('./routes/shoutout');
 const userController = require('./controllers/userController');
-const shoutoutController = require('./controllers/shoutoutController');
 
 const app = express();
 const PORT = process.env.PORT || 3000;

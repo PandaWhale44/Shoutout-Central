@@ -8,14 +8,14 @@ module.exports = {
   `,
   addUser: `
     INSERT INTO users 
-    (email, password, username, affiliation)
-    VALUES ($1, $2, $3, $4);
+    (email, password, firstName, lastName, affiliation)
+    VALUES ($1, $2, $3, $4, $5);
   `,
   updateUser: `
-    UPDATE INTO users
-    (email, password, username, affiliation, points, rank)
+    UPDATE users
+    (email, password, firstName, lastName, affiliation, points)
     VALUES ($1, $2, $3, $4, $5, $6)
-    WHERE
+    WHERE email=$1
   `,
   deleteUser: `
     DELETE FROM users

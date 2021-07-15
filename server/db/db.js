@@ -8,11 +8,6 @@ const pool = new Pool({
   connectionString: PG_URI,
 });
 
-pool.query('DELETE TABLE users', (err, data) => {
-  if (err) console.error(err);
-  else console.log(data);
-});
-
 // pool.query('./createTables.sql', (err, data) => {
 //   if (err) console.error(err);
 //   else console.log(data);
