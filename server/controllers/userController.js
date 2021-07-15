@@ -1,5 +1,4 @@
 const bcrypt = require('bcryptjs');
-
 const db = require('../db/db.js');
 const q = require('../db/queries.js');
 
