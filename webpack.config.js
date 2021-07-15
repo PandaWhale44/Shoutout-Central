@@ -36,7 +36,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /jsx?$/,
+        test: /\.(js|jsx)?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -48,13 +48,14 @@ module.exports = {
       },
       {
         test: /\.((sa|s?c)ss)$/i,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
+      
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', 'ts', 'tsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', ".css"],
   },
   plugins: [
     new HtmlWebpackPlugin({

@@ -1,3 +1,5 @@
+// NO LONGER USING MONGOOSE DATABASE
+
 const mongoose = require('mongoose');
 
 // this string was changed slightly to work earlier.  Have pasted it with the working string

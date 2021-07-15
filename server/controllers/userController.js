@@ -23,6 +23,7 @@ userController.getAllUsers = (req, res, next) => {
 
 /**
  * createUser - create and save a new User into the database.
+ * encrypts the password with bycrpt
  */
 // const submitted_info = docuemnt.addEventListener('submit', 'form').values
 // check if the inputted username already exists in the table
@@ -46,7 +47,7 @@ userController.createUser = async (req, res, next) => {
     return next();
   });
 };
-
+// edit the user's points by retrieving the user's info based on it's email
 userController.editUser = async (req, res, next) => {
   const { email, points } = req.body;
   db.query(q.updateUser, [email, points], (err, result) => {
