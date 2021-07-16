@@ -70,7 +70,7 @@ userController.verifyUser = async (req, res, next) => {
   const [userId, hashedPassword] = [userData._id, userData.password];
 
   bcrypt.compare(password, hashedPassword, (err, result) => {
-    if (err || !result) res.redirect(200, '../../client/components/signin');
+    if (err || !result) res.redirect(200, '../../client/_components/LoginPage');
     console.log(password, hashedPassword);
     res.locals.currentUser = { userId, email };
     return next();

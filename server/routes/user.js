@@ -13,8 +13,7 @@ router.post(
   // cookieController.setSSIDCookie,
   (req, res) => {
     console.log('signin sucessful');
-    res.locals.currentUser = req.body;
-    return res.redirect('/../../client/components/homepage').json(req.body);
+    return res.redirect(200, '/../../client/_components/HomePage').json(res.locals.currentUser);
   }
 );
 // allows the fields of the user to be updated and edited
@@ -37,7 +36,7 @@ router.patch('/', userController.editUser, (req, res) => {
 /**
  * signup
  */
-// after creating an account, the user will get added to the database 
+// after creating an account, the user will get added to the database
 // and then will be redirected to log in with their new account information
 router.post(
   '/signup',
@@ -47,7 +46,7 @@ router.post(
   (req, res) => {
     console.log('signup successful');
     res.locals.currentUser = req.body;
-    res.redirect('../../client/components/signin').json(res.locals.currentUser);
+    res.redirect(200, '../../client/_components/LoginPage');
   }
 );
 
