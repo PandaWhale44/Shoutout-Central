@@ -11,7 +11,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/actions'
+import * as actions from '../actions/oldactions'
 // import from child components...
 import CommentsDisplay from '../components/CommentChainDisplay.jsx';
 import CommentWriter from '../components/CommentWriter.jsx';

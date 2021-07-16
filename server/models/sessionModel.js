@@ -1,3 +1,5 @@
+// NO LONGER USING MONGOOSE DATABASE
+
 // const mongoose = require('mongoose');
 
 // const MONGO_URI =
