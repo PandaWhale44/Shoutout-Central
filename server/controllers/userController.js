@@ -67,11 +67,10 @@ userController.verifyUser = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) return next('empty field in userController.verifyUser');
   const userData = await db.query(q.getUser, [email]).catch((err) => next(err));
-  const [userId, hashedPassword] = [userData._id, userData.password];
+  const [userId, hashedPassword] = [userData.rows[0]._id, userData.rows[0].password];
 
   bcrypt.compare(password, hashedPassword, (err, result) => {
-    if (err || !result) res.redirect(200, '../../client/_components/LoginPage');
-    console.log(password, hashedPassword);
+    if (err || !result) return res.status(400).end('wrong password. login unsuccessful.');
     res.locals.currentUser = { userId, email };
     return next();
   });

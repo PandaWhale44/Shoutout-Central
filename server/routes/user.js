@@ -11,10 +11,12 @@ router.post(
   '/',
   userController.verifyUser,
   // cookieController.setSSIDCookie,
-  (req, res) => {
-    console.log('signin sucessful');
-    return res.redirect(200, '/../../client/_components/HomePage').json(res.locals.currentUser);
-  }
+  (req, res) =>
+    res
+      .status(200)
+      .send('login successful!')
+      .redirect('/../../client/_components/HomePage')
+      .json({ ...res.locals.currentUser })
 );
 // allows the fields of the user to be updated and edited
 // (specifically the method to increment points after receiving shoutout can be used here)
