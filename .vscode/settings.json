@@ -7,7 +7,10 @@
     },
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "eslint.workingDirectories": [
-        "./**"
+        "../**"
     ],
     "eslint.lintTask.enable": true,
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "ms-vsliveshare.vsliveshare"
+    },
 }
