@@ -10,4 +10,7 @@
         "../**"
     ],
     "eslint.lintTask.enable": true,
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "ms-vsliveshare.vsliveshare"
+    },
 }

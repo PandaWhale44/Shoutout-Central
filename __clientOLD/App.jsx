@@ -12,19 +12,17 @@
  */
 
 import React, { Component } from 'react';
-import MainContainer from './containers/MainContainer.jsx';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
+import LoginForm from './components2/LoginPage';
+// import LoginForm from './components/LoginForm';
 
 class App extends Component {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
-      <div>
-        <p>Testing App Component...</p>
-        <MainContainer />
+      <div className="App">
+        <p>WELCOME TO LOGIN PAGE</p>
+          <LoginForm />
       </div>
     );
   }
